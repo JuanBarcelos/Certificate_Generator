@@ -1,0 +1,95 @@
+.custom-card{
+  max-width: 672px;
+  gap: 32px;
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+  padding: 32px;
+
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 28px;
+    letter-spacing: 0;
+    color: #1A2856;
+    margin-bottom: 20px;
+  }
+
+  .atividade-group{
+    margin-bottom: 32px;
+    .item-list{
+      width: 100%;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 16px;
+      gap: 12px;
+
+      .container-item{
+        .item{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .remove-btn i{
+            padding: 5.75px;
+            color: #E95F5F;
+            font-size: 12.5px;
+            &:hover{
+              cursor: pointer;
+              border-radius: 4px;
+              background-color: #E2E8F0;
+            }
+          }
+        }
+        hr{
+          all: unset;
+          background-color:#E2E8F0;
+          height: 1px;
+          display: block;
+          margin: 12px 0;
+        }
+      }
+    }
+  }
+
+  .custom-input-group{
+    .error-message{
+      color: #E95F5F;
+      gap: 4px;
+      margin-top: 8px;
+
+      span{
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0;
+        font-weight: 400;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  .custom-input-group:has(input:focus) label{
+    color: #3B5AC2;
+  }
+
+  .custom-input-group:has(.error-message) label{
+    color: #E95F5F;
+  }
+
+  label {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0;
+    color: #1A2856;
+  }
+
+  input{
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    &:focus{
+      outline: none;
+      border: 1px solid #3B5AC2;
+      box-shadow: none;
+    }
+  }
+}
