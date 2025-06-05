@@ -1,4 +1,4 @@
-<div class="d-flex flex-column align-items-center">
+<form #form="ngForm" novalidate class="d-flex flex-column align-items-center">
   <div class="content-titles">
     <h1 class="fw-bold mb-2 custom-title">Geração de certificado</h1>
     <h2 class="mb-4 custom-subtitle">
@@ -10,48 +10,66 @@
     <div class="mb-3 custom-input-group" >
       <label for="name" class="form-label">Nome</label>
       <input
+        required
+        #nameRef="ngModel"
+        name="name"
+        maxlength="100"
+        [(ngModel)]="certificate.name"
         id="name"
         type="text"
         class="form-control"
         placeholder="Nome do aluno"
       />
-      <div class="error-message d-flex align-items-center">
-        <i class="ph ph-warning-circle"></i>
-        <span class="error-message-text">Error message</span>
-      </div>
+      @if (invalidFields(nameRef)) {
+        <div class="error-message d-flex align-items-center">
+          <i class="ph ph-warning-circle"></i>
+          <span class="error-message-text">Campo obrigatório</span>
+        </div>
+      }
     </div>
     <div class="mb-3 d-flex align-items-end">
       <div class="flex-grow-1 me-2 custom-input-group">
         <label for="activite" class="form-label">Atividade</label>
         <input
+          #activityRef="ngModel"
+          name="activity"
+          maxlength="100"
+          [(ngModel)]="activity"
           id="activite"
           type="text"
           class="form-control"
           placeholder="Atividade exercida"
         />
       </div>
-      <app-secondary-button></app-secondary-button>
+      <app-secondary-button
+        [disabled]="activity.length > 0 ? false : true"
+        titleButton="Adicionar"
+        phClass="ph ph-plus"
+        (click)="addActivity()"
+      ></app-secondary-button>
     </div>
     <div class="atividade-group">
       <label class="form-label">Lista de Atividades</label>
       <div class="item-list w-100">
         <div class="container-item">
-          <div class="item">
-            <span class="item-title">Config em Angular CLI</span>
-            <div class="remove-btn">
-              <i class="ph-bold ph-x"></i>
+          @for (activity of certificate.listActivities; track $index) {
+            <div class="item">
+              <span class="item-title">{{activity}}</span>
+              <div class="remove-btn" (click)="removeActivity($index)">
+                <i class="ph-bold ph-x"></i>
+              </div>
             </div>
-          </div>
-          <hr />
-          <div class="item">
-            <span class="item-title">Config em Angular CLI</span>
-            <div class="remove-btn">
-              <i class="ph-bold ph-x"></i>
-            </div>
-          </div>
+            @if ($index +1 != certificate.listActivities.length) {
+              <hr />
+            }
+          }
         </div>
       </div>
     </div>
-    <app-primary-button></app-primary-button>
+    <app-primary-button
+      (click)="generateCertificate()"
+      titleButton="Gerar certificado"
+      [disabled]="!validForm()"
+    ></app-primary-button>
   </div>
-</div>
+</form>
