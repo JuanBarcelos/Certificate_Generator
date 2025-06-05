@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { SecondaryButtonComponent } from "../../components/secondary-button/secondary-button.component";
 import { PrimaryButtonComponent } from "../../components/primary-button/primary-button.component";
 import { FormsModule, type NgModel } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import type { Certificate } from '../../interfaces/certificate';
+import { Certificate } from '../../interfaces/certificate';
+import { CertificateService } from '../../services/certificate.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-certificado-form',
@@ -12,10 +14,14 @@ import type { Certificate } from '../../interfaces/certificate';
   styleUrl: './certificado-form.component.scss'
 })
 export class CertificadoFormComponent {
+  @ViewChild('certificateForm') certificateForm !: NgModel;
+  constructor(private certificateService: CertificateService) { }
 
   certificate: Certificate = {
+    id: '',
     name: '',
-    listActivities: []
+    listActivities: [],
+    date: new Date().toLocaleDateString('pt-BR'),
   }
   activity: string = '';
 
@@ -23,9 +29,11 @@ export class CertificadoFormComponent {
     return field.invalid && field.touched
   }
   validForm() {
+    //return this.certificateForm.valid
     return this.certificate.name.length > 0 && this.certificate.listActivities.length > 0
   }
   addActivity() {
+    
     if (this.activity.length > 0) {
       this.certificate.listActivities.push(this.activity)
       this.activity = ''
@@ -39,6 +47,20 @@ export class CertificadoFormComponent {
       alert('Preencha todos os campos')
       return
     }
-    console.log(this.certificate)
+    this.certificate.id = uuidv4();
+    this.certificateService.addCertificate(this.certificate);
+
+    this.clearCertificateForm();
+    this.certificateForm.reset();
+  }
+
+  clearCertificateForm() {
+    this.certificate = {
+      id: '',
+      name: '',
+      listActivities: [],
+      date: new Date().toLocaleDateString('pt-BR'),
+    }
+
   }
 }
