@@ -10,12 +10,14 @@
       <p class="mb-0">Voltar</p>
     </div>
     <app-secondary-button
+      (click)="downloadCertificate()"
       phClass="ph ph-download-simple"
       titleButton="Download"
     ></app-secondary-button>
   </div>
   @if (certificate) {
     <div
+      #certificateContainer
       class="certificate-container d-flex justify-content-center align-items-center w-100"
     >
       <img
