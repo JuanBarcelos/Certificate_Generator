@@ -52,8 +52,6 @@ export class CertificadoFormComponent {
     this.certificate.id = uuidv4();
     this.certificateService.addCertificate(this.certificate);
     this.route.navigate(['/certificado', this.certificate.id]);
-    //this.clearCertificateForm();
-    //this.certificateForm.reset();
   }
 
   clearCertificateForm() {
