@@ -16,7 +16,13 @@
     </div>
   } @else {
     <div class="custom-itens w-100">
-      <app-item-certificado></app-item-certificado>
+      @for (certificate of certificates; track $index) {
+        <app-item-certificado
+          [nomeDoAluno]="certificate.name"
+          [dataDeEmissao]="certificate.date"
+          [id]="certificate.id"
+        ></app-item-certificado>
+      }
     </div>
   }
 </div>

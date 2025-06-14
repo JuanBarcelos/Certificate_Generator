@@ -18,7 +18,6 @@ export class CertificadoComponent implements OnInit {
     this.router.params.subscribe(params => {
       const id = params['id'];
       this.certificate = this.certificateService.getCertificateById(id);
-      console.log(this.certificate);
     });
   }
 }

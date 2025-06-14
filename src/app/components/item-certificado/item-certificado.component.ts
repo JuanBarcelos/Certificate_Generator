@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SecondaryButtonComponent } from "../secondary-button/secondary-button.component";
 import { Router } from '@angular/router';
 
@@ -9,8 +9,10 @@ import { Router } from '@angular/router';
   styleUrl: './item-certificado.component.scss'
 })
 export class ItemCertificadoComponent {
-
-  id: String = '2'
+  @Input() nomeDoAluno: String = '';
+  @Input() dataDeEmissao: String = '';
+  @Input() id: String = '';
+  
   constructor( private router: Router ) { }
   goToCertificado() {
     this.router.navigate(['/certificado/', this.id]);

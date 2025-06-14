@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { Certificate } from '../../interfaces/certificate';
 import { CertificateService } from '../../services/certificate.service';
 import { v4 as uuidv4 } from 'uuid';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-certificado-form',
@@ -15,7 +16,8 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class CertificadoFormComponent {
   @ViewChild('certificateForm') certificateForm !: NgModel;
-  constructor(private certificateService: CertificateService) { }
+
+  constructor(private certificateService: CertificateService, private route: Router) { }
 
   certificate: Certificate = {
     id: '',
@@ -33,7 +35,7 @@ export class CertificadoFormComponent {
     return this.certificate.name.length > 0 && this.certificate.listActivities.length > 0
   }
   addActivity() {
-    
+
     if (this.activity.length > 0) {
       this.certificate.listActivities.push(this.activity)
       this.activity = ''
@@ -49,9 +51,9 @@ export class CertificadoFormComponent {
     }
     this.certificate.id = uuidv4();
     this.certificateService.addCertificate(this.certificate);
-
-    this.clearCertificateForm();
-    this.certificateForm.reset();
+    this.route.navigate(['/certificado', this.certificate.id]);
+    //this.clearCertificateForm();
+    //this.certificateForm.reset();
   }
 
   clearCertificateForm() {

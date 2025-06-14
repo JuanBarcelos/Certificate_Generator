@@ -18,7 +18,6 @@ export class CertificadosComponent implements OnInit {
 
   ngOnInit(): void {
     this.certificates = this.certificadoService.getCertificates();
-    console.log(this.certificates);
   }
 
 }

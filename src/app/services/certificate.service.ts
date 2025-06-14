@@ -18,9 +18,7 @@ export class CertificateService {
     return this.certificates.find(certificate => certificate.id === id)!;
   }
   addCertificate(certificate: Certificate): void {
-    this.certificates.push({...certificate});
+    this.certificates.unshift({...certificate});
     localStorage.setItem('certificates', JSON.stringify(this.certificates));
   }
-
-
 }
